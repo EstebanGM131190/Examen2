@@ -9,7 +9,7 @@
 
 #include "Configuration.h"
 
-
+PIT_ConfigType PIT0_Config = {PIT_0,PRIORITY_14};
 UART_config_type UART_0_config = {UART_0,GPIO_B,BIT16,BIT17,60000000,BD_115200,PRIORITY_9};
 
 
@@ -25,6 +25,8 @@ void Initial_configuration(){	//function that does all the required configuratio
 	PORTC->PCR[6]  = PORT_PCR_MUX(1) + PORT_PCR_PE_MASK + PORT_PCR_PS_MASK;	//modo GPIO + pull enable + pull up
 	PORTA->PCR[4]  = PORT_PCR_MUX(1) + PORT_PCR_PE_MASK + PORT_PCR_PS_MASK; //modo GPIO + pull enable + pull up
 
+	//PIT
+	PIT_init(&PIT0_Config);	//pit 0 configuration
 
 
 	//FLEXTIMER

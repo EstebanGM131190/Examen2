@@ -37,6 +37,7 @@ void LED_AZUL_ENCENDIDO(){
 }
 
 int main(void) {
+	uint8 flag_blink = FALSE;
 	Initial_configuration();			//does all the required initial configuration
 	GPIOB->PDDR = LED_ROJO + LED_AZUL;				//pines de led rojo y azul configurados como salida
 		GPIOE->PDDR = LED_VERDE;						//pin de led verde configurado como salida
@@ -44,10 +45,21 @@ int main(void) {
 	LEDS_APAGADOS();
 	while(1) {
 		lectura_PBs();
+
 		if(FALSE == input_sw2){
-			//DO SOMETHING
-			LED_AZUL_ENCENDIDO();
+			PIT_delay(PIT_0, 21000000, 0.5);	//pit delay used to control the blinking transition
 		}
 
+		if(PIT_getIntrFlags(PIT_0) == TRUE){//DO SOMETHING
+			if(flag_blink == FALSE){
+				LED_AZUL_ENCENDIDO();
+				flag_blink = TRUE;
+			}
+			else if(flag_blink == TRUE){
+				LEDS_APAGADOS();
+				flag_blink = FALSE;
+			}
+			PIT_clear(PIT_0);
+		}
 	}
 }
