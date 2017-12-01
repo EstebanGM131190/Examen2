@@ -10,6 +10,7 @@
 #include "Configuration.h"
 
 PIT_ConfigType PIT0_Config = {PIT_0,PRIORITY_14};
+
 UART_config_type UART_0_config = {UART_0,GPIO_B,BIT16,BIT17,60000000,BD_115200,PRIORITY_9};
 
 

@@ -14,6 +14,12 @@
 #include "UART.h"
 #include "GPIO.h"
 #include "PIT.h"
+
+typedef struct{
+	uint8 DASH_DOTS[6];	 /**field used to know which function to use in terms of the state*/
+	uint8 next[27];			/**member which contains the next state in relation to the input*/
+}MORSE_StatesMachine;
+
 /********************************************************************************************/
 /********************************************************************************************/
 /********************************************************************************************/
